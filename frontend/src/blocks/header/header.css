@@ -1,0 +1,14 @@
+.header {
+  min-height: 74px;
+  width: 100%;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+@media (max-width: 880px) {
+  .header {
+    min-height: 56px;
+  }
+}
