@@ -1,4 +1,5 @@
 import { checkResponse } from "./utils";
+import {BASE_URL} from './Auth';
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -83,10 +84,10 @@ class Api {
   }
 }
 
-const baseUrl = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`;
+//const baseUrl = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`;
 
 export const api = new Api({
-  baseUrl: baseUrl,
+  baseUrl: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
