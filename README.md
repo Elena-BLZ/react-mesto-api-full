@@ -6,7 +6,7 @@
 Авторизация: можно зарегистрироваться, войти, выйти, контент защищен.
 
 HTML, CSS, JS, JSX.
-Node JS, Express, React, MongoDB.
+Node.JS, Express, React, MongoDB.
 
 Сверстан адаптивно.
 

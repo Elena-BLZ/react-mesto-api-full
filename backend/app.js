@@ -28,8 +28,8 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 const app = express();
 
-app.use(helmet());
 app.use('*', cors(options));
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
