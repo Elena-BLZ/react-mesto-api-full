@@ -3,7 +3,7 @@ export const checkResponse = (res) => {
       return res.json();
     }
     return res.json().then((data) => {
-      const errMessage = data.statusCode === 400 ? data.validation.body.message : data.message;
+      const errMessage = data.statusCode === 400 ? `Данные введены неверно. (${data.validation.body.message})` : data.message;
       throw new Error(errMessage);
     })
   };

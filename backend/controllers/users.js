@@ -46,7 +46,7 @@ module.exports.createUser = (req, res, next) => {
   } = req.body;
   User.findOne({ email })
     .then((found) => {
-      if (found) { throw new ConflictError('Такой емеил уже занят'); }
+      if (found) { throw new ConflictError('Такой email уже занят'); }
       bcrypt.hash(password, 10)
         .then((hash) => User.create({
           name, about, avatar, email, password: hash,
@@ -66,7 +66,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new RequestError(err.message));
       } else if (err.code === 11000) {
-        next(new ConflictError('Такой емеил уже занят'));
+        next(new ConflictError('Такой email уже занят'));
       } else { next(err); }
     });
 };
@@ -76,12 +76,12 @@ module.exports.login = (req, res, next) => {
   User.findOne({ email }).select('+password')
     .then((foundUser) => {
       if (!foundUser) {
-        throw new AuthError('Неверный емеил или пароль');
+        throw new AuthError('Неверный email или пароль');
       }
       return bcrypt.compare(password, foundUser.password)
         .then((isPasswordCorrect) => {
           if (!isPasswordCorrect) {
-            throw new AuthError('Неверный емеил или пароль');
+            throw new AuthError('Неверный email или пароль');
           }
           const token = generateToken({ _id: foundUser._id });
 

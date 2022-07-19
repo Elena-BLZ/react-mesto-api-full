@@ -9,11 +9,10 @@ const { errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const { loginJoi, usersJoi } = require('./middlewares/celebrate');
-const { auth } = require('./middlewares/auth');
-const { login, logOut, createUser } = require('./controllers/users');
 const { errorProcessor } = require('./middlewares/error-processor');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
+const routes = require('./routes/index');
 
 const options = {
   origin: [
@@ -23,8 +22,6 @@ const options = {
   ],
   credentials: true, // эта опция позволяет устанавливать куки
 };
-
-const NotFoundError = require('./errors/not-found-err');
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
@@ -43,18 +40,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', loginJoi, login);
-app.post('/signup', usersJoi, createUser);
-
-app.use(auth);
-app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
-
-app.use('/logout', logOut);
-
-app.use(() => {
-  throw new NotFoundError('Нет такого покемона');
-});
+app.use(routes); // весь роутинг там
 
 app.use(errorLogger); // подключаем логгер ошибок
 
